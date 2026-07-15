@@ -26,13 +26,13 @@ jobs:
       - name: Report results to flaky-test-tracker
         if: always()
         run: |
-          curl -sf -X POST "$TRACKER_URL/api/v1/test_results"  
+          curl -sf -X POST "$TRACKER_URL/api/v1/test_results" \
+            -H "Authorization: Token $AUTH_TOKEN" \
             -F "repo=${{ github.repository }}" \
             -F "commit_sha=${{ github.sha }}" \
             -F "branch=${{ github.ref_name }}" \
             -F "ci_run_id=${{ github.run_id }}" \
             -F "results=@results.xml;type=text/xml" \
-            -H "Authorization: Token 2b7b06269b4c6b30380f9db9c20923ed1a2a877e9b80fc81f618c341bcf9ccd1"
         env:
           TRACKER_URL: ${{ secrets.FLAKY_TRACKER_URL }}
           AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
