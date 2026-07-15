@@ -27,6 +27,7 @@ jobs:
         if: always()
         run: |
           curl -sf -X POST "$TRACKER_URL/api/v1/test_results" \
+            -H "Authorization: Token $AUTH_TOKEN" \ 
             -F "repo=${{ github.repository }}" \
             -F "commit_sha=${{ github.sha }}" \
             -F "branch=${{ github.ref_name }}" \
@@ -34,6 +35,7 @@ jobs:
             -F "results=@results.xml;type=text/xml"
         env:
           TRACKER_URL: ${{ secrets.FLAKY_TRACKER_URL }}
+          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
    
       - name: Fail job if tests failed
         if: failure()
