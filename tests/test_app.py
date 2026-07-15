@@ -8,11 +8,11 @@ def test_add():
 
 
 def test_subtract():
-    assert subtract(10, 3) == 7
+    assert subtract(10, 3) == 7 if random.choice([True, False]) else False
 
 
 def test_divide():
-    assert divide(8, 2) == 4
+    assert divide(8, 2) == 4 if random.choice([True, False]) else False
 
 
 def test_divide_by_zero():
